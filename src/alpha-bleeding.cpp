@@ -7,21 +7,41 @@
 
 void alpha_bleeding(unsigned char *image, int width, int height);
 
+void print_usage()
+{
+	std::cout << "Usage: alpha-bleeding <input> <output> [-c]" << std::endl;
+	std::cout << "-c: clean alpha channel" << std::endl;
+}
+
 int main(int argc, char *argv[])
 {
-	if (argc != 3)
+	if (argc < 3)
 	{
-		std::cout << "Usage: alpha-bleeding <input> <output>" << std::endl;
-		return 0;
+		print_usage();
+		return 1;
 	}
 
 	const char *input = argv[1];
 	const char *output = argv[2];
+	bool clean_alpha = false;
+	if (argc > 3)
+	{
+		const char *clean = argv[3];
+		if (strncmp("-c", clean, 2) == 0)
+		{
+			clean_alpha = true;
+		}
+		else
+		{
+			print_usage();
+			return 1;
+		}
+	}
 
 	if (std::ifstream(output).good())
 	{
 		std::cout << "Output file already exists!" << std::endl;
-		return 0;
+		return 1;
 	}
 
 	int w, h, c;
@@ -38,10 +58,18 @@ int main(int argc, char *argv[])
 	{
 		std::cout << "The image must be 32 bits (RGB with alpha channel)." << std::endl;
 		delete[] data;
-		return 0;
+		return 1;
 	}
 
 	alpha_bleeding(data, w, h);
+
+	if (clean_alpha)
+	{
+		const size_t N = 4 * w * h;
+		for (size_t i = 3; i < N; i += 4)
+			data[i] = 255;
+	}
+
 	png_save(output, w, h, data);
 
 	delete[] data;
