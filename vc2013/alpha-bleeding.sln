@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "alpha-bleeding", "alpha-bleeding.vcxproj", "{368FA9C0-B823-4214-B2D1-7C21600BFB35}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "alpha-strip", "alpha-strip.vcxproj", "{15E55DDB-7956-4582-9BB2-701E5DF5DB8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{368FA9C0-B823-4214-B2D1-7C21600BFB35}.Debug|Win32.Build.0 = Debug|Win32
 		{368FA9C0-B823-4214-B2D1-7C21600BFB35}.Release|Win32.ActiveCfg = Release|Win32
 		{368FA9C0-B823-4214-B2D1-7C21600BFB35}.Release|Win32.Build.0 = Release|Win32
+		{15E55DDB-7956-4582-9BB2-701E5DF5DB8F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{15E55DDB-7956-4582-9BB2-701E5DF5DB8F}.Debug|Win32.Build.0 = Debug|Win32
+		{15E55DDB-7956-4582-9BB2-701E5DF5DB8F}.Release|Win32.ActiveCfg = Release|Win32
+		{15E55DDB-7956-4582-9BB2-701E5DF5DB8F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
