@@ -169,3 +169,53 @@ bool png_save(const char *filename, int width, int height, unsigned char *data)
 
 	return true;
 }
+
+
+bool png_save_alpha(const char *filename, int width, int height, unsigned char *data)
+{
+	FILE *png_file = fopen(filename, "wb");
+
+	if (!png_file)
+		return false;
+
+	png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
+	if (!png_ptr)
+		return false;
+
+	png_infop info_ptr = png_create_info_struct(png_ptr);
+
+	if (!info_ptr)
+		return false;
+
+	png_init_io(png_ptr, png_file);
+
+	png_set_IHDR(png_ptr, info_ptr, width, height, 8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE,
+		PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+
+	png_byte **row_ptrs = new png_byte*[height];
+
+	for (int i = 0; i < height; i++)
+	{
+		unsigned char* row = data + i * width * 4;
+		for (int j = 0; j < width; j++)
+		{
+			row[j * 4] = row[j * 4 + 3];
+			row[j * 4 + 1] = row[j * 4 + 3];
+			row[j * 4 + 2] = row[j * 4 + 3];
+			row[j * 4 + 3] = 255;
+		}
+		row_ptrs[i] = row;
+	}
+
+	png_set_rows(png_ptr, info_ptr, row_ptrs);
+	png_write_png(png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, NULL);
+
+	png_destroy_write_struct(&png_ptr, &info_ptr);
+
+	fclose(png_file);
+
+	delete[] row_ptrs;
+
+	return true;
+}

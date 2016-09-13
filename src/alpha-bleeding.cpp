@@ -38,11 +38,11 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	if (std::ifstream(output).good())
-	{
-		std::cout << "Output file already exists!" << std::endl;
-		return 1;
-	}
+	//if (std::ifstream(output).good())
+	//{
+	//	std::cout << "Output file already exists!" << std::endl;
+	//	return 1;
+	//}
 
 	int w, h, c;
 
@@ -118,7 +118,7 @@ void alpha_bleeding(unsigned char *image, int width, int height)
 				{
 					size_t index = j + 4 * (s + t * width);
 
-					if (image[index + 3] != 0)
+					if (image[index] != 0)
 					{
 						isLoose = false;
 						break;
